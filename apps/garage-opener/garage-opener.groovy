@@ -109,6 +109,12 @@ def enableLogging = [
 preferences {
     //dynamicPage(name: "controls", uninstall: true, install: true) {
     page(name: "mainPage", title: "Garage Opener", install: true, uninstall: true) {
+        section("<h2>General</h2>") {
+            //To allow changing this app's name. Helpful if you need multiple controllers for multiple garage doors
+            input "thisName", "text", title: "Name this garage door", defaultValue: "Garage Door", submitOnChange: true
+            if (thisName) app.updateLabel("$thisName Controller")
+        }
+
 		section("<h2>Controls</h2>") {
             input garageControl
             input garageSwitch
@@ -304,7 +310,7 @@ def handleTimeout() {
         }
     }
     else if (doorStatus == 'closing') {
-        if (openContact) {
+        if (closedContact) {
             // we have a contact that detects fully closed position.
             // however the contact has not yet closed (otherwise the door status would be `closed`)
             // this means that the garage door is stuck while closing
