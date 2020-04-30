@@ -366,12 +366,12 @@ def handleTimeout() {
             // we have a contact that detects fully open position.
             // however the contact has not yet closed (otherwise the door status would be `open`)
             // this means that the garage door is stuck while opening
-            log.warn "${garageControl.label} might be stuck while opening"
-            garageControl.sendEvent(name: "door", value: "unknown", descriptionText: "${garageControl.label} might be stuck while opening")
+            log.warn "${thisName} might be stuck while opening"
+            garageControl.sendEvent(name: "door", value: "unknown", descriptionText: "${thisName} might be stuck while opening")
         } else {
             // no contact that detects fully open position.
             // use timeout to set controller to `open`
-            garageControl.sendEvent(name: "door", value: "open", descriptionText: "${garageControl.label} is open after ${garageTime}s")
+            garageControl.sendEvent(name: "door", value: "open", descriptionText: "${thisName} is open after ${garageTime}s")
         }
     }
     else if (doorStatus == 'closing') {
@@ -379,12 +379,12 @@ def handleTimeout() {
             // we have a contact that detects fully closed position.
             // however the contact has not yet closed (otherwise the door status would be `closed`)
             // this means that the garage door is stuck while closing
-            log.warn "${garageControl.label} might be stuck while closing"
-            garageControl.sendEvent(name: "door", value: "unknown", descriptionText: "${garageControl.label} might be stuck while closing")
+            log.warn "${thisName} might be stuck while closing"
+            garageControl.sendEvent(name: "door", value: "unknown", descriptionText: "${thisName} might be stuck while closing")
         } else {
             // no contact that detects fully closed position.
             // use timeout to set controller to `closed`
-            garageControl.sendEvent(name: "door", value: "closed", descriptionText: "${garageControl.label} is closed after ${garageTime}s")
+            garageControl.sendEvent(name: "door", value: "closed", descriptionText: "${thisName} is closed after ${garageTime}s")
         }
     }
 }
