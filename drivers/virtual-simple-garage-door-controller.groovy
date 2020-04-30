@@ -20,6 +20,8 @@
 metadata {
 	definition (name: "Virtual Simple Garage Door Controller", namespace: "muxa", author: "Mikhail Diatchenko") {
 		capability "GarageDoorControl"
+
+        command "sync"
 	}
 
 	preferences {
@@ -48,15 +50,25 @@ def updated() {
 def close() {
     if (device.currentValue("door") != "closed") {
         displayInfoLog "closing"
-        sendEvent(name: "door", value: "closing")
+//        sendEvent(name: "door", value: "closing")
+        sendEvent(name: "requestedCommand", value: "close")
     }
 }
 
 def open() {
     if (device.currentValue("door") != "open") {
         displayInfoLog "opening"
-        sendEvent(name: "door", value: "opening")
+//        sendEvent(name: "door", value: "opening")
+        sendEvent(name: "requestedCommand", value: "open")
     }
+}
+
+/**
+ * Requests a sync to the physical garage door from the controller app
+ * @return N/A
+ */
+def sync() {
+    sendEvent(name: "syncRequested", value: "true")
 }
 
 private def displayDebugLog(message) {
